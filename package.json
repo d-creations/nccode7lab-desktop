@@ -1,0 +1,56 @@
+{
+  "name": "nc-edit7-desktop",
+  "version": "1.0.0",
+  "author": "d-creations",
+  "description": "NC-Edit7 Desktop App based on Eclipse Theia",
+  "main": "src-gen/backend/electron-main.js",
+  "dependencies": {
+    "@theia/console": "latest",
+    "@theia/core": "latest",
+    "@theia/editor": "latest",
+    "@theia/electron": "latest",
+    "@theia/filesystem": "latest",
+    "@theia/monaco": "latest",
+    "@theia/monaco-editor-core": "1.108.201",
+    "@theia/navigator": "latest",
+    "@theia/plugin-ext": "^1.71.0",
+    "@theia/plugin-ext-vscode": "^1.71.0",
+    "@theia/preferences": "latest",
+    "@theia/scm": "latest",
+    "@theia/workspace": "latest",
+    "nccode7lab": "git+https://github.com/d-creations/nccode7lab-vsextension.git"
+  },
+  "devDependencies": {
+    "@theia/cli": "latest",
+    "electron": "39.8.7",
+    "electron-builder": "^24.6.4"
+  },
+  "scripts": {
+    "ensure:theia-native": "node scripts/ensure-native-deps.js",
+    "build": "npm run ensure:theia-native && theia build",
+    "start": "theia start --plugins=local-dir:plugins",
+    "download:python": "node scripts/download-python.js",
+    "build:ext": "cd node_modules/nccode7lab && npm install && npm run compile",
+    "copy:ext": "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force -Path 'plugins/nccode7lab' | Out-Null; robocopy 'node_modules/nccode7lab' 'plugins/nccode7lab' /MIR /R:2 /W:1 /NFL /NDL /NJH /NJS /NP; if ($LASTEXITCODE -gt 7) { exit $LASTEXITCODE } else { exit 0 }\"",
+    "build:electron": "npm run build && npm run build:ext && npm run copy:ext && electron-builder"
+  },
+  "theiaPluginsDir": "plugins",
+  "theia": {
+    "target": "electron",
+    "frontend": {
+      "config": {
+        "applicationName": "NC-Edit7"
+      }
+    }
+  },
+  "build": {
+    "npmRebuild": false,
+    "icon": "build/icon.ico",
+    "directories": {
+      "output": "dist2"
+    },
+    "win": {
+      "icon": "build/icon.ico"
+    }
+  }
+}
