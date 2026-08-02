@@ -1,0 +1,27 @@
+name: Microsoft Store Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify Theia module exports
+        run: npm run verify:theia-exports
+      - run: npm run build:store
+        env:
+          MS_STORE_IDENTITY_NAME: ${{ secrets.MS_STORE_IDENTITY_NAME }}
+          MS_STORE_PUBLISHER: ${{ secrets.MS_STORE_PUBLISHER }}
+          MS_STORE_PUBLISHER_DISPLAY_NAME: ${{ secrets.MS_STORE_PUBLISHER_DISPLAY_NAME }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nc-edit7-microsoft-store
+          path: dist2/microsoft-store/*.appx
+          if-no-files-found: error

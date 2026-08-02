@@ -1,0 +1,19 @@
+{
+  "name": "nc-edit7-shell",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@theia/core": "1.73.1",
+    "@theia/debug": "1.73.1",
+    "@theia/terminal": "1.73.1",
+    "electron-updater": "^6.6.2"
+  },
+  "theiaExtensions": [
+    {
+      "frontend": "lib/browser/nc-edit7-shell-frontend-module"
+    },
+    {
+      "electronMain": "lib/electron-main/nc-edit7-updater-module"
+    }
+  ]
+}

@@ -4,8 +4,13 @@
  */
 // @ts-check
 const path = require('path');
-const configs = require('./gen-webpack.config.js');
+const configs = /** @type {any[]} */ (require('./gen-webpack.config.js'));
 const nodeConfig = require('./gen-webpack.node.config.js');
+
+configs[0].entry.bundle = [
+    path.resolve(__dirname, 'src-gen', 'frontend', 'custom.css'),
+    configs[0].entry.bundle
+];
 
 // Theia 1.71 expects an older @vscode/ripgrep package layout. Newer versions
 // expose the binary via rgPath instead of a bin/rg.exe subpath.

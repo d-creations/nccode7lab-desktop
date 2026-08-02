@@ -1,0 +1,17 @@
+appId: com.dcreations.ncedit7
+productName: NC-Edit7
+npmRebuild: false
+directories:
+  output: dist2/github
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch:
+        - x64
+artifactName: ${productName}-Setup-${version}.${ext}
+publish:
+  provider: github
+  owner: d-creations
+  repo: -nccode7lab-desktop
+  releaseType: release

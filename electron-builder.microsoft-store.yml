@@ -1,0 +1,22 @@
+appId: com.dcreations.ncedit7
+productName: NC-Edit7
+npmRebuild: false
+directories:
+  output: dist2/microsoft-store
+win:
+  icon: build/icon.ico
+  target:
+    - target: appx
+      arch:
+        - x64
+appx:
+  identityName: ${env.MS_STORE_IDENTITY_NAME}
+  publisher: ${env.MS_STORE_PUBLISHER}
+  publisherDisplayName: ${env.MS_STORE_PUBLISHER_DISPLAY_NAME}
+  displayName: NC-Edit7
+  applicationId: NCEdit7
+  electronUpdaterAware: false
+  languages:
+    - en-US
+    - de-DE
+artifactName: ${productName}-Store-${version}.${ext}
